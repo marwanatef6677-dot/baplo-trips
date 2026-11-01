@@ -14,46 +14,58 @@
 
 const colors = {
   light: {
-    // Legacy aliases (kept for backward compatibility)
-    text: '#0a0a0a',
-    tint: '#2f95dc',
-
-    // Core surfaces
-    background: '#ffffff',
-    foreground: '#0a0a0a',
-
-    // Cards / elevated surfaces
-    card: '#f9f9f9',
-    cardForeground: '#0a0a0a',
-
-    // Primary action color (buttons, links, active states)
-    primary: '#2f95dc',
-    primaryForeground: '#ffffff',
-
-    // Secondary / less-emphasis interactive surfaces
-    secondary: '#f0f0f0',
-    secondaryForeground: '#1a1a1a',
-
-    // Muted / subdued elements (dividers, timestamps, placeholders)
-    muted: '#f0f0f0',
-    mutedForeground: '#737373',
-
-    // Accent highlights (badges, selected items, focus rings)
-    accent: '#f0f0f0',
-    accentForeground: '#1a1a1a',
-
-    // Destructive actions (delete, error states)
-    destructive: '#ef4444',
-    destructiveForeground: '#ffffff',
-
-    // Borders and input outlines
-    border: '#e5e5e5',
-    input: '#e5e5e5',
+    text: '#183B3A',
+    tint: '#167B70',
+    background: '#F5F8F5',
+    foreground: '#173635',
+    card: '#FFFFFF',
+    cardForeground: '#173635',
+    primary: '#167B70',
+    primaryForeground: '#FFFFFF',
+    secondary: '#E7F1EE',
+    secondaryForeground: '#1D5B54',
+    muted: '#EDF2EF',
+    mutedForeground: '#71817B',
+    accent: '#FFF0D8',
+    accentForeground: '#85561E',
+    destructive: '#C84F4F',
+    destructiveForeground: '#FFFFFF',
+    border: '#E1E9E4',
+    input: '#D7E2DC',
+    success: '#167B70',
+    successSoft: '#E1F2EC',
+    warning: '#9B641F',
+    warningSoft: '#FFF0D8',
+    info: '#426F8A',
+    infoSoft: '#E7F0F5',
   },
-
-  // Border radius (in px). Sync from the sibling web artifact's --radius
-  // CSS variable. This value applies to cards, buttons, inputs, and modals.
-  radius: 8,
+  dark: {
+    text: '#E7F1EC',
+    tint: '#71C9B6',
+    background: '#102422',
+    foreground: '#E7F1EC',
+    card: '#18312E',
+    cardForeground: '#E7F1EC',
+    primary: '#71C9B6',
+    primaryForeground: '#10312D',
+    secondary: '#213D39',
+    secondaryForeground: '#C8E7DD',
+    muted: '#203632',
+    mutedForeground: '#A3B8AF',
+    accent: '#463A26',
+    accentForeground: '#F1C77F',
+    destructive: '#F07171',
+    destructiveForeground: '#FFFFFF',
+    border: '#2B4641',
+    input: '#39544E',
+    success: '#71C9B6',
+    successSoft: '#1E4039',
+    warning: '#F1C77F',
+    warningSoft: '#463A26',
+    info: '#9CC9DF',
+    infoSoft: '#263C49',
+  },
+  radius: 20,
 };
 
 export default colors;
