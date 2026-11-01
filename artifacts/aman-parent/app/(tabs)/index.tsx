@@ -130,33 +130,33 @@ function Dashboard({ preferences, onScreen }: { preferences: Preferences; onScre
     <>
       <View style={[styles.childCard, { backgroundColor: colors.primary }]}>
         <View style={styles.childTopLine}>
-          <View style={styles.childAvatar}>
+          <View style={[styles.childAvatar, { backgroundColor: colors.successSoft }]}>
             <Feather name="user" size={22} color={colors.primary} />
           </View>
           <View style={styles.childCopy}>
-            <Text style={styles.childName}>يوسف</Text>
-            <Text style={styles.childLabel}>ملف تجريبي للطفل</Text>
+            <Text style={[styles.childName, { color: colors.primaryForeground }]}>يوسف</Text>
+            <Text style={[styles.childLabel, { color: colors.primaryForeground, opacity: 0.72 }]}>ملف تجريبي للطفل</Text>
           </View>
-          <View style={styles.demoPill}>
-            <View style={styles.demoDot} />
-            <Text style={styles.demoPillText}>تجريبي</Text>
+          <View style={[styles.demoPill, { backgroundColor: colors.primaryForeground, opacity: 0.92 }]}>
+            <View style={[styles.demoDot, { backgroundColor: colors.warning }]} />
+            <Text style={[styles.demoPillText, { color: colors.primary }]}>تجريبي</Text>
           </View>
         </View>
-        <View style={styles.childDivider} />
+        <View style={[styles.childDivider, { backgroundColor: colors.primaryForeground, opacity: 0.2 }]} />
         <View style={styles.usageSummary}>
           <View>
-            <Text style={styles.childLabel}>وقت الشاشة اليوم · مثال</Text>
-            <Text style={styles.bigUsage}>٢ س ١٨ د</Text>
+            <Text style={[styles.childLabel, { color: colors.primaryForeground, opacity: 0.72 }]}>وقت الشاشة اليوم · مثال</Text>
+            <Text style={[styles.bigUsage, { color: colors.primaryForeground }]}>٢ س ١٨ د</Text>
           </View>
-          <View style={styles.circleProgress}>
-            <Text style={styles.circlePercent}>٧٦٪</Text>
+          <View style={[styles.circleProgress, { borderColor: colors.success }]}>
+            <Text style={[styles.circlePercent, { color: colors.primaryForeground }]}>٧٦٪</Text>
           </View>
         </View>
         <View style={styles.limitLine}>
-          <View style={styles.limitTrack}>
-            <View style={styles.limitFill} />
+          <View style={[styles.limitTrack, { backgroundColor: colors.primaryForeground, opacity: 0.2 }]}>
+            <View style={[styles.limitFill, { backgroundColor: colors.warning }]} />
           </View>
-          <Text style={styles.limitText}>من حدّ {formatDuration(preferences.dailyLimitMinutes)}</Text>
+          <Text style={[styles.limitText, { color: colors.primaryForeground, opacity: 0.8 }]}>من حدّ {formatDuration(preferences.dailyLimitMinutes)}</Text>
         </View>
       </View>
 
@@ -516,7 +516,7 @@ const styles = StyleSheet.create({
   loading: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12 },
   loadingText: { fontSize: 14, fontFamily: 'Inter_500Medium' },
   header: { minHeight: 68, flexDirection: 'row-reverse', alignItems: 'center', paddingHorizontal: 20, gap: 10 },
-  brandMark: { width: 42, height: 42, borderRadius: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(22,123,112,0.10)' },
+  brandMark: { width: 42, height: 42, borderRadius: 15, alignItems: 'center', justifyContent: 'center' },
   headerCopy: { flex: 1 },
   brandTitle: { fontFamily: 'Inter_700Bold', fontSize: 20, textAlign: 'right' },
   brandSubtitle: { fontFamily: 'Inter_400Regular', fontSize: 11, textAlign: 'right', marginTop: 1 },
@@ -527,22 +527,22 @@ const styles = StyleSheet.create({
   scrollContent: { paddingHorizontal: 18, paddingTop: 8, paddingBottom: 150, gap: 15 },
   childCard: { borderRadius: 26, padding: 19, overflow: 'hidden' },
   childTopLine: { flexDirection: 'row-reverse', alignItems: 'center', gap: 11 },
-  childAvatar: { width: 46, height: 46, borderRadius: 16, backgroundColor: '#E5F5EF', alignItems: 'center', justifyContent: 'center' },
+  childAvatar: { width: 46, height: 46, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
   childCopy: { flex: 1 },
-  childName: { color: '#FFFFFF', fontFamily: 'Inter_700Bold', fontSize: 17, textAlign: 'right' },
-  childLabel: { color: 'rgba(255,255,255,0.72)', fontFamily: 'Inter_400Regular', fontSize: 12, textAlign: 'right', marginTop: 3 },
-  demoPill: { flexDirection: 'row-reverse', alignItems: 'center', gap: 5, backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 12, paddingHorizontal: 9, paddingVertical: 6 },
-  demoDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#F2CE8B' },
-  demoPillText: { color: '#FFFFFF', fontFamily: 'Inter_500Medium', fontSize: 10 },
-  childDivider: { height: 1, backgroundColor: 'rgba(255,255,255,0.16)', marginVertical: 16 },
+  childName: { fontFamily: 'Inter_700Bold', fontSize: 17, textAlign: 'right' },
+  childLabel: { fontFamily: 'Inter_400Regular', fontSize: 12, textAlign: 'right', marginTop: 3 },
+  demoPill: { flexDirection: 'row-reverse', alignItems: 'center', gap: 5, borderRadius: 12, paddingHorizontal: 9, paddingVertical: 6 },
+  demoDot: { width: 6, height: 6, borderRadius: 3 },
+  demoPillText: { fontFamily: 'Inter_500Medium', fontSize: 10 },
+  childDivider: { height: 1, marginVertical: 16 },
   usageSummary: { flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'space-between' },
-  bigUsage: { color: '#FFFFFF', fontFamily: 'Inter_700Bold', fontSize: 31, textAlign: 'right', marginTop: 3 },
-  circleProgress: { width: 58, height: 58, borderWidth: 4, borderColor: '#9BDED0', borderRadius: 30, alignItems: 'center', justifyContent: 'center' },
-  circlePercent: { color: '#FFFFFF', fontFamily: 'Inter_700Bold', fontSize: 12 },
+  bigUsage: { fontFamily: 'Inter_700Bold', fontSize: 31, textAlign: 'right', marginTop: 3 },
+  circleProgress: { width: 58, height: 58, borderWidth: 4, borderRadius: 30, alignItems: 'center', justifyContent: 'center' },
+  circlePercent: { fontFamily: 'Inter_700Bold', fontSize: 12 },
   limitLine: { marginTop: 14, flexDirection: 'row-reverse', alignItems: 'center', gap: 10 },
-  limitTrack: { flex: 1, height: 7, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.20)', overflow: 'hidden' },
-  limitFill: { width: '76%', height: '100%', borderRadius: 5, backgroundColor: '#E8C98A' },
-  limitText: { color: 'rgba(255,255,255,0.78)', fontFamily: 'Inter_500Medium', fontSize: 10 },
+  limitTrack: { flex: 1, height: 7, borderRadius: 5, overflow: 'hidden' },
+  limitFill: { width: '76%', height: '100%', borderRadius: 5 },
+  limitText: { fontFamily: 'Inter_500Medium', fontSize: 10 },
   notice: { flexDirection: 'row-reverse', alignItems: 'flex-start', gap: 9, borderWidth: 1, borderRadius: 16, padding: 12 },
   noticeText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 12, lineHeight: 19, textAlign: 'right' },
   sectionHeading: { minHeight: 26, flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'space-between', marginTop: 2 },
@@ -586,7 +586,7 @@ const styles = StyleSheet.create({
   resetButton: { flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'center', gap: 9, minHeight: 49, borderWidth: 1, borderRadius: 15 },
   resetText: { fontFamily: 'Inter_600SemiBold', fontSize: 12 },
   bottomSpace: { height: 8 },
-  tabBar: { position: 'absolute', left: 16, right: 16, height: 66, borderWidth: 1, borderRadius: 23, flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'space-around', paddingHorizontal: 8, elevation: 7, shadowColor: '#000000', shadowOpacity: 0.07, shadowRadius: 18, shadowOffset: { width: 0, height: 5 } },
+  tabBar: { position: 'absolute', left: 16, right: 16, height: 66, borderWidth: 1, borderRadius: 23, flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'space-around', paddingHorizontal: 8, elevation: 7, shadowOpacity: 0.07, shadowRadius: 18, shadowOffset: { width: 0, height: 5 } },
   tabItem: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 4, minHeight: 58 },
   tabLabel: { fontFamily: 'Inter_600SemiBold', fontSize: 10 },
 });

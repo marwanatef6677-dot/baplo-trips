@@ -10,3 +10,4 @@
 - [Pablo location selection](pablo-location-selection.md) — pickup and destination must support place search, manual map pins, and editable typed addresses.
 - [Pablo install prompt](pablo-install-prompt.md) — show install help on every Android/iPhone browser visit until installed; hide it in standalone mode.
 - [Pablo weekly discount wheel](pablo-weekly-wheel.md) — weekly customer promo codes are account-bound and Pablo-funded, with captain compensation credited to the wallet after a completed passenger ride.
+- [Aman parental transparency](aman-parent-transparency.md) — keep child-safety controls visible; never conceal location or app-usage collection.
