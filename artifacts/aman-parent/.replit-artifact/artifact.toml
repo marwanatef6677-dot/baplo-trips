@@ -1,0 +1,24 @@
+kind = "mobile"
+previewPath = "/aman-parent/"
+title = "أمان — رقابة أبوية شفافة"
+description = "تطبيق Android تجريبي للأهل لإدارة وقت الشاشة وحدود التطبيقات ومشاركة الموقع بشفافية، مع إعدادات محلية واضحة. لا يقرأ الرسائل أو الصور أو محتوى الحسابات."
+version = "1.0.0"
+id = "artifacts/aman-parent"
+router = "expo-domain"
+
+[[services]]
+name = "expo"
+ensurePreviewReachable = "/status"
+paths = [ "/aman-parent/" ]
+localPort = 18609
+
+[services.development]
+run = "pnpm --filter @workspace/aman-parent run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/aman-parent", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/aman-parent", "run", "serve" ]
+
+[services.env]
+PORT = "18609"
+BASE_PATH = "/aman-parent/"
