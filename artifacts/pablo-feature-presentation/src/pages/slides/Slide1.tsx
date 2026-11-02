@@ -6,7 +6,7 @@ export default function Slide1() {
       <div className="blob blob-gold right-[1vw] top-[1vh] h-[22vw] w-[22vw]" />
       <div className="blob blob-teal left-[1vw] bottom-[1vh] h-[22vw] w-[22vw]" />
       <div className="absolute left-[6vw] top-[17vh] h-[66vh] w-[43vw] overflow-hidden rounded-[2.4vw] border border-white/80 shadow-xl">
-        <img src={`${base}pablo-hero-refined.png`} crossOrigin="anonymous" alt="سيارة وموتوسيكل على شارع قاهري مرسوم" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-hero-photo.png`} crossOrigin="anonymous" alt="سيارة وموتوسيكل على شارع بالقاهرة" className="h-full w-full object-cover" />
         <div className="absolute inset-x-0 bottom-0 h-[24vh] bg-gradient-to-t from-[#14233D]/65 to-transparent" />
         <div className="absolute bottom-[3vh] left-[3vw] rounded-full bg-[#FFD000] px-[1.5vw] py-[1vh] text-[1.55vw] font-bold text-primary">بابلو</div>
       </div>

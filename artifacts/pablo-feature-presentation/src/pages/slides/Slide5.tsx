@@ -15,7 +15,7 @@ export default function Slide5() {
         <p className="text-[2vw] leading-relaxed">الدفع نقدًا في النسخة الحالية</p>
       </section>
       <div className="absolute left-[7vw] top-[25vh] h-[59vh] w-[38vw] overflow-hidden rounded-[2.2vw] shadow-lg">
-        <img src={`${base}pablo-tracking-refined.png`} crossOrigin="anonymous" alt="عميل يتابع اقتراب سيارة على هاتفه" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-tracking-photo.png`} crossOrigin="anonymous" alt="عميل يتابع اقتراب سيارة على هاتفه" className="h-full w-full object-cover" />
         <div className="absolute inset-x-0 bottom-0 h-[18vh] bg-gradient-to-t from-[#14233D]/60 to-transparent" />
       </div>
       <div className="absolute bottom-[3vh] right-[7vw] flex items-center gap-[1.8vw]">

@@ -2,7 +2,7 @@ const base = import.meta.env.BASE_URL;
 export default function Slide12() {
   return (
     <main className="w-screen h-screen overflow-hidden relative bg-primary text-white" dir="rtl">
-      <img src={`${base}pablo-closing-refined.png`} crossOrigin="anonymous" alt="خلفية تجريدية بأشكال عضوية ومسار طريق بألوان بابلو" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+      <img src={`${base}pablo-closing-photo.png`} crossOrigin="anonymous" alt="مشهد ليلي لشارع القاهرة بإضاءة دافئة ومساحة داكنة للنص" className="absolute inset-0 h-full w-full object-cover opacity-35" />
       <div className="absolute inset-0 bg-[linear-gradient(115deg,#1E3A5F/80_0%,#14233D/90_100%)]" />
       <div className="blob blob-gold right-[1vw] top-[1vh] h-[22vw] w-[22vw] opacity-40" />
       <div className="blob blob-teal left-[1vw] bottom-[1vh] h-[22vw] w-[22vw] opacity-50" />

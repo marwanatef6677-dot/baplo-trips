@@ -9,7 +9,7 @@ export default function Slide6() {
         <h1 className="mt-[1.4vh] text-[3.7vw] font-bold leading-tight text-primary">الموتوسيكل للركاب والمنتجات</h1>
       </header>
       <div className="absolute right-[7vw] top-[26vh] h-[58vh] w-[41vw] overflow-hidden rounded-[2.2vw] shadow-lg">
-        <img src={`${base}pablo-delivery-refined.png`} crossOrigin="anonymous" alt="كابتن توصيل بخوذة يسلم طردًا صغيرًا في شارع مصري" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-delivery-photo.png`} crossOrigin="anonymous" alt="كابتن توصيل بخوذة يسلم طردًا صغيرًا في شارع مصري" className="h-full w-full object-cover" />
       </div>
       <section className="absolute left-[7vw] top-[28vh] w-[39vw] space-y-[4.2vh]">
         <p className="border-b border-primary/15 pb-[2vh] text-[2.15vw] font-semibold">رحلات ركاب بالموتوسيكل</p>

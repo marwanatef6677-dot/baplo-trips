@@ -15,7 +15,7 @@ export default function Slide7() {
         <p className="rounded-[1.2vw] bg-[#FFD000]/30 px-[1.6vw] py-[1.7vh] text-[2vw] font-semibold leading-relaxed">لا يقبل رحلات قبل اعتماد الإدارة</p>
       </section>
       <div className="absolute left-[7vw] top-[25vh] h-[59vh] w-[38vw] overflow-hidden rounded-[2.2vw] shadow-lg">
-        <img src={`${base}pablo-captain-refined.png`} crossOrigin="anonymous" alt="كابتن بجوار مركبته في مشهد حضري موثوق" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-captain-photo.png`} crossOrigin="anonymous" alt="كابتن بجوار مركبته في مشهد حضري موثوق" className="h-full w-full object-cover" />
       </div>
       <div className="absolute bottom-[3vh] right-[7vw] flex items-center gap-[1.8vw]">
         <img src={`${base}replit-logo.svg`} crossOrigin="anonymous" alt="شعار Replit" className="h-[2.8vh] w-auto object-contain" />
