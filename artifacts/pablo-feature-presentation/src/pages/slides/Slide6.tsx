@@ -9,14 +9,18 @@ export default function Slide6() {
         <h1 className="mt-[1.4vh] text-[3.7vw] font-bold leading-tight text-primary">الموتوسيكل للركاب والمنتجات</h1>
       </header>
       <div className="absolute right-[7vw] top-[26vh] h-[58vh] w-[41vw] overflow-hidden rounded-[2.2vw] shadow-lg">
-        <img src={`${base}pablo-delivery.png`} crossOrigin="anonymous" alt="كابتن توصيل بخوذة يسلم طردًا صغيرًا في شارع مصري" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-delivery-refined.png`} crossOrigin="anonymous" alt="كابتن توصيل بخوذة يسلم طردًا صغيرًا في شارع مصري" className="h-full w-full object-cover" />
       </div>
       <section className="absolute left-[7vw] top-[28vh] w-[39vw] space-y-[4.2vh]">
-        <p className="border-b border-primary/15 pb-[2vh] text-[2.15vw] font-semibold">رحلة راكب بالموتوسيكل</p>
-        <p className="border-b border-primary/15 pb-[2vh] text-[2.15vw] font-semibold">توصيل منتجات داخل المحافظة</p>
-        <p className="border-b border-primary/15 pb-[2vh] text-[2vw] leading-relaxed">بيانات المستلم ووصف المنتج مطلوبة في التوصيل</p>
-        <p className="text-[2vw] leading-relaxed">تفاصيل السعر تظهر قبل إرسال الطلب</p>
+        <p className="border-b border-primary/15 pb-[2vh] text-[2.15vw] font-semibold">رحلات ركاب بالموتوسيكل</p>
+        <p className="border-b border-primary/15 pb-[2vh] text-[2.15vw] font-semibold">توصيل المنتجات داخل المحافظة</p>
+        <p className="border-b border-primary/15 pb-[2vh] text-[2vw] leading-relaxed">أدخل بيانات المستلم ووصف المنتج</p>
+        <p className="text-[2vw] leading-relaxed">راجع السعر قبل إرسال الطلب</p>
       </section>
+      <div className="absolute bottom-[3vh] right-[7vw] flex items-center gap-[1.8vw]">
+        <img src={`${base}replit-logo.svg`} crossOrigin="anonymous" alt="شعار Replit" className="h-[2.8vh] w-auto object-contain" />
+        <img src={`${base}nordpoints-logo.png`} crossOrigin="anonymous" alt="شعار Nordpoints" className="h-[2.5vh] w-auto object-contain" />
+      </div>
       <div className="absolute bottom-[4vh] left-[7vw] text-[1.5vw] font-semibold text-muted">٠٦ / ١٢</div>
     </main>
   );

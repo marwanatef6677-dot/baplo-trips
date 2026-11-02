@@ -9,13 +9,17 @@ export default function Slide7() {
         <h1 className="mt-[1.4vh] text-[3.7vw] font-bold leading-tight text-primary">اعتماد الكابتن قبل قبول الرحلات</h1>
       </header>
       <section className="absolute right-[7vw] top-[27vh] w-[43vw] space-y-[3.8vh]">
-        <p className="text-[2vw] leading-relaxed">يكمّل الكابتن بياناته وبيانات المركبة</p>
+        <p className="text-[2vw] leading-relaxed">يستكمل بياناته وبيانات المركبة</p>
         <p className="text-[2vw] leading-relaxed">يرفع صورته مع المركبة وصور الرخص المطلوبة</p>
-        <p className="text-[2vw] leading-relaxed">الإدارة تراجع المستندات وتصدر قرار الاعتماد</p>
-        <p className="rounded-[1.2vw] bg-[#FFD000]/30 px-[1.6vw] py-[1.7vh] text-[2vw] font-semibold leading-relaxed">لا تظهر له إمكانية قبول الطلبات قبل الموافقة</p>
+        <p className="text-[2vw] leading-relaxed">تراجع الإدارة المستندات وتصدر قرارها</p>
+        <p className="rounded-[1.2vw] bg-[#FFD000]/30 px-[1.6vw] py-[1.7vh] text-[2vw] font-semibold leading-relaxed">لا يقبل رحلات قبل اعتماد الإدارة</p>
       </section>
       <div className="absolute left-[7vw] top-[25vh] h-[59vh] w-[38vw] overflow-hidden rounded-[2.2vw] shadow-lg">
-        <img src={`${base}pablo-captain.png`} crossOrigin="anonymous" alt="كابتن بجوار مركبته في مشهد حضري موثوق" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-captain-refined.png`} crossOrigin="anonymous" alt="كابتن بجوار مركبته في مشهد حضري موثوق" className="h-full w-full object-cover" />
+      </div>
+      <div className="absolute bottom-[3vh] right-[7vw] flex items-center gap-[1.8vw]">
+        <img src={`${base}replit-logo.svg`} crossOrigin="anonymous" alt="شعار Replit" className="h-[2.8vh] w-auto object-contain" />
+        <img src={`${base}nordpoints-logo.png`} crossOrigin="anonymous" alt="شعار Nordpoints" className="h-[2.5vh] w-auto object-contain" />
       </div>
       <div className="absolute bottom-[4vh] left-[7vw] text-[1.5vw] font-semibold text-muted">٠٧ / ١٢</div>
     </main>
