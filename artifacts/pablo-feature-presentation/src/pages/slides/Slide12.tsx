@@ -12,7 +12,14 @@ export default function Slide12() {
         <div className="mt-[5vh] h-[0.55vh] w-[10vw] rounded-full bg-[#FFD000]" />
         <p className="mt-[3vh] text-[1.75vw]">إعداد: <span dir="ltr" className="font-semibold">Marwan Atef Abdelwahed Ali</span></p>
         <p className="mt-[1.2vh] text-[1.75vw]">المشرف: <span dir="ltr" className="font-semibold">Taha Mahmoud Metwally Nour El-Dein</span></p>
-        <p className="mt-[3vh] text-[1.6vw] font-semibold"><span dir="ltr">Replit • Nordpoints</span> <span className="font-normal text-white/70">(علامتان نصيتان مؤقتتان)</span></p>
+        <div className="mt-[3vh] flex items-center gap-[1.2vw]">
+          <div className="flex h-[5vh] items-center rounded-[0.8vw] bg-white px-[1vw] shadow-sm">
+            <img src={`${base}replit-logo.svg`} crossOrigin="anonymous" alt="شعار Replit" className="h-[2.8vh] w-auto object-contain" />
+          </div>
+          <div className="flex h-[5vh] items-center rounded-[0.8vw] bg-white px-[1vw] shadow-sm">
+            <img src={`${base}nordpoints-logo.png`} crossOrigin="anonymous" alt="شعار Nordpoints" className="h-[2.7vh] w-auto object-contain" />
+          </div>
+        </div>
       </div>
       <div className="absolute bottom-[4vh] left-[7vw] text-[1.5vw] font-semibold text-white/75">١٢ / ١٢</div>
     </main>

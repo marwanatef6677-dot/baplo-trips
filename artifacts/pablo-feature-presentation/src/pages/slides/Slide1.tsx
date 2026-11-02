@@ -19,7 +19,14 @@ export default function Slide1() {
           <p>إعداد: <span dir="ltr" className="font-semibold">Marwan Atef Abdelwahed Ali</span></p>
           <p>المشرف: <span dir="ltr" className="font-semibold">Taha Mahmoud Metwally Nour El-Dein</span></p>
         </div>
-        <p className="mt-[2.5vh] text-[1.5vw] font-semibold text-primary"><span dir="ltr">Replit • Nordpoints</span> <span className="font-normal text-muted">(علامتان نصيتان مؤقتتان)</span></p>
+        <div className="mt-[2.5vh] flex items-center gap-[1.2vw]">
+          <div className="flex h-[5vh] items-center rounded-[0.8vw] bg-white px-[1vw] shadow-sm">
+            <img src={`${base}replit-logo.svg`} crossOrigin="anonymous" alt="شعار Replit" className="h-[2.8vh] w-auto object-contain" />
+          </div>
+          <div className="flex h-[5vh] items-center rounded-[0.8vw] bg-white px-[1vw] shadow-sm">
+            <img src={`${base}nordpoints-logo.png`} crossOrigin="anonymous" alt="شعار Nordpoints" className="h-[2.7vh] w-auto object-contain" />
+          </div>
+        </div>
       </div>
       <div className="absolute bottom-[4vh] right-[7vw] text-[1.5vw] font-semibold text-muted">٠١ / ١٢</div>
     </main>
