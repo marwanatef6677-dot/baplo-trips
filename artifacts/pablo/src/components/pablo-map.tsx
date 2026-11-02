@@ -41,9 +41,9 @@ export function PabloMap({
       touchZoom: interactive, boxZoom: interactive, keyboard: interactive,
     });
     m.attributionControl.setPrefix(false);
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
       maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · <a href="https://www.hotosm.org/" target="_blank" rel="noopener">HOT style</a>',
     }).addTo(m);
     layers.current = L.layerGroup().addTo(m);
     if (interactive) m.on("click", (e: L.LeafletMouseEvent) => onPickRef.current?.({ lat: +e.latlng.lat.toFixed(6), lng: +e.latlng.lng.toFixed(6) }));
