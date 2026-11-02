@@ -8,14 +8,17 @@ export default function Slide2() {
       <header className="absolute right-[7vw] top-[7vh]">
         <h1 className="mt-[1.6vh] text-[3.9vw] font-bold leading-tight text-primary">الفكرة في جملة واحدة</h1>
       </header>
-      <section className="absolute right-[7vw] top-[28vh] w-[86vw] rounded-[2vw] bg-[#0D9488]/10 px-[4vw] py-[4vh]">
-        <p className="max-w-[78vw] text-[3vw] font-semibold leading-[1.4] text-primary">بابلو يجمع العميل بالكابتن لرحلة أو توصيل أسهل.</p>
-      </section>
-      <div className="absolute bottom-[13vh] right-[7vw] grid w-[86vw] grid-cols-3 gap-[2vw]">
-        <div className="border-t-[0.5vh] border-accent pt-[2vh]"><p className="text-[2vw] font-semibold leading-relaxed">اختار الخدمة وحدّد نقطة الركوب والوجهة</p></div>
-        <div className="border-t-[0.5vh] border-[#FFD000] pt-[2vh]"><p className="text-[2vw] font-semibold leading-relaxed">اعرف السعر التقديري قبل إرسال الطلب</p></div>
-        <div className="border-t-[0.5vh] border-[#DD7253] pt-[2vh]"><p className="text-[2vw] font-semibold leading-relaxed">تابع الطلب وتواصل من داخل التطبيق</p></div>
+      <div className="absolute left-[7vw] top-[24vh] h-[58vh] w-[40vw] overflow-hidden rounded-[2.2vw] shadow-lg">
+        <img src={`${base}pablo-concept.png`} crossOrigin="anonymous" alt="عميل وكابتن يلتقيان بجوار سيارة بابلو في شارع بالقاهرة" className="h-full w-full object-cover" />
       </div>
+      <section className="absolute right-[7vw] top-[27vh] w-[42vw]">
+        <p className="text-[2.85vw] font-semibold leading-[1.4] text-primary">بابلو يربط العميل بالكابتن لطلب رحلة أو توصيل منتج.</p>
+        <div className="mt-[4vh] space-y-[3vh]">
+          <div className="flex items-start gap-[1.4vw]"><span className="mt-[1.2vh] h-[1.2vw] w-[1.2vw] shrink-0 rounded-full bg-accent" /><p className="text-[2vw] leading-relaxed">اختار الخدمة وحدّد مكان الركوب والوجهة</p></div>
+          <div className="flex items-start gap-[1.4vw]"><span className="mt-[1.2vh] h-[1.2vw] w-[1.2vw] shrink-0 rounded-full bg-[#FFD000]" /><p className="text-[2vw] leading-relaxed">اعرف الأجرة التقديرية قبل إرسال الطلب</p></div>
+          <div className="flex items-start gap-[1.4vw]"><span className="mt-[1.2vh] h-[1.2vw] w-[1.2vw] shrink-0 rounded-full bg-[#DD7253]" /><p className="text-[2vw] leading-relaxed">تابع الرحلة وتواصل من داخل التطبيق</p></div>
+        </div>
+      </section>
       <div className="absolute bottom-[3vh] right-[7vw] flex items-center gap-[1.8vw]">
         <img src={`${base}replit-logo.svg`} crossOrigin="anonymous" alt="شعار Replit" className="h-[2.8vh] w-auto object-contain" />
         <img src={`${base}nordpoints-logo.png`} crossOrigin="anonymous" alt="شعار Nordpoints" className="h-[2.5vh] w-auto object-contain" />
