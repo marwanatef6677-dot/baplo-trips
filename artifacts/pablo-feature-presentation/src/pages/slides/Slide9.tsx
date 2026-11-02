@@ -1,3 +1,4 @@
+const base = import.meta.env.BASE_URL;
 export default function Slide9() {
   return (
     <main className="w-screen h-screen overflow-hidden relative bg-bg text-text" dir="rtl">
@@ -12,11 +13,15 @@ export default function Slide9() {
           <p className="text-[2vw] font-semibold">لفة واحدة لكل عميل كل <strong className="text-[5vw] font-bold leading-none text-primary">٧ أيام</strong></p>
         </div>
         <div className="mt-[3vh] grid grid-cols-2 gap-x-[4vw] gap-y-[3.4vh]">
-          <p className="border-t-[0.45vh] border-accent pt-[1.7vh] text-[2vw] leading-relaxed">أكواد خصم من ٣٪ إلى ٣٠٪، مع احتمال «حظ أوفر»</p>
-          <p className="border-t-[0.45vh] border-[#DD7253] pt-[1.7vh] text-[2vw] leading-relaxed">العميل يدخل الكود يدويًا؛ صالح لرحلة ركاب مكتملة واحدة</p>
-          <p className="col-span-2 rounded-[1.5vw] bg-[#1E3A5F] px-[2.2vw] py-[2.1vh] text-[2vw] leading-relaxed text-white">بابلو يتحمل الخصم ويعوّض الكابتن في المحفظة بعد إتمام الرحلة</p>
+          <p className="border-t-[0.45vh] border-accent pt-[1.7vh] text-[2vw] leading-relaxed">خصومات من ٣٪ إلى ٣٠٪، وقد تكون النتيجة «حظ أوفر»</p>
+          <p className="border-t-[0.45vh] border-[#DD7253] pt-[1.7vh] text-[2vw] leading-relaxed">أدخل الرمز يدويًا لرحلة ركاب مكتملة واحدة</p>
+          <p className="col-span-2 rounded-[1.5vw] bg-[#1E3A5F] px-[2.2vw] py-[2.1vh] text-[2vw] leading-relaxed text-white">بابلو يغطي الخصم، ويضيف تعويضه لمحفظة الكابتن بعد اكتمال الرحلة</p>
         </div>
       </section>
+      <div className="absolute bottom-[3vh] right-[7vw] flex items-center gap-[1.8vw]">
+        <img src={`${base}replit-logo.svg`} crossOrigin="anonymous" alt="شعار Replit" className="h-[2.8vh] w-auto object-contain" />
+        <img src={`${base}nordpoints-logo.png`} crossOrigin="anonymous" alt="شعار Nordpoints" className="h-[2.5vh] w-auto object-contain" />
+      </div>
       <div className="absolute bottom-[4vh] left-[7vw] text-[1.5vw] font-semibold text-muted">٠٩ / ١٢</div>
     </main>
   );

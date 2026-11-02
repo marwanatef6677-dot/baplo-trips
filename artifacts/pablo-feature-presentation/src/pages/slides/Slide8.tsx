@@ -1,3 +1,4 @@
+const base = import.meta.env.BASE_URL;
 export default function Slide8() {
   return (
     <main className="w-screen h-screen overflow-hidden relative bg-bg text-text" dir="rtl">
@@ -19,9 +20,13 @@ export default function Slide8() {
           <p className="text-[2vw] leading-relaxed">يحتاج الكابتن إلى رصيد كافٍ لحجز العمولة عند القبول</p>
         </article>
         <article className="min-h-[20vh] rounded-[1.5vw] bg-[#0D9488]/12 px-[2vw] py-[2.5vh]">
-          <p className="text-[2vw] leading-relaxed">يرتفع المستوى من ٠ إلى ١٠ كل ١٠ رحلات مكتملة، مع شارة داخل التطبيق</p>
+          <p className="text-[2vw] leading-relaxed">يرتقي المستوى كل ١٠ رحلات مكتملة، من ٠ إلى ١٠، مع شارة داخل التطبيق</p>
         </article>
       </section>
+      <div className="absolute bottom-[3vh] right-[7vw] flex items-center gap-[1.8vw]">
+        <img src={`${base}replit-logo.svg`} crossOrigin="anonymous" alt="شعار Replit" className="h-[2.8vh] w-auto object-contain" />
+        <img src={`${base}nordpoints-logo.png`} crossOrigin="anonymous" alt="شعار Nordpoints" className="h-[2.5vh] w-auto object-contain" />
+      </div>
       <div className="absolute bottom-[4vh] left-[7vw] text-[1.5vw] font-semibold text-muted">٠٨ / ١٢</div>
     </main>
   );
