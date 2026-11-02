@@ -9,7 +9,7 @@ export default function Slide2() {
         <h1 className="mt-[1.6vh] text-[3.9vw] font-bold leading-tight text-primary">الفكرة في جملة واحدة</h1>
       </header>
       <div className="absolute left-[7vw] top-[24vh] h-[58vh] w-[40vw] overflow-hidden rounded-[2.2vw] shadow-lg">
-        <img src={`${base}pablo-concept.png`} crossOrigin="anonymous" alt="عميل وكابتن يلتقيان بجوار سيارة بابلو في شارع بالقاهرة" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-concept-photo.png`} crossOrigin="anonymous" alt="عميل وكابتن يلتقيان بجوار سيارة في شارع بالقاهرة" className="h-full w-full object-cover" />
       </div>
       <section className="absolute right-[7vw] top-[27vh] w-[42vw]">
         <p className="text-[2.85vw] font-semibold leading-[1.4] text-primary">بابلو يربط العميل بالكابتن لطلب رحلة أو توصيل منتج.</p>

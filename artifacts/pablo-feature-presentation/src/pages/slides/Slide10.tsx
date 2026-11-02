@@ -9,7 +9,7 @@ export default function Slide10() {
         <h1 className="mt-[1.4vh] text-[3.8vw] font-bold leading-tight text-primary">دعم وتقييم بعد الرحلة</h1>
       </header>
       <div className="absolute left-[7vw] top-[25vh] h-[58vh] w-[39vw] overflow-hidden rounded-[2.2vw] shadow-lg">
-        <img src={`${base}pablo-support-refined.png`} crossOrigin="anonymous" alt="موظف دعم ودود أمام واجهة محادثة رمزية" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-support-photo.png`} crossOrigin="anonymous" alt="عميل يتواصل مع موظفة خدمة عملاء" className="h-full w-full object-cover" />
       </div>
       <section className="absolute right-[7vw] top-[27vh] w-[43vw] space-y-[3.6vh]">
         <p className="text-[2vw] leading-relaxed">إجابات سريعة ومحادثة دعم بالذكاء الاصطناعي</p>

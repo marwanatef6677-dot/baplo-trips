@@ -9,7 +9,7 @@ export default function Slide3() {
         <h1 className="mt-[1.4vh] text-[3.6vw] font-bold leading-tight text-primary">من اختيار الموقع إلى إرسال الطلب</h1>
       </header>
       <div className="absolute left-[7vw] top-[25vh] h-[58vh] w-[39vw] overflow-hidden rounded-[2.2vw] shadow-lg">
-        <img src={`${base}pablo-map-refined.png`} crossOrigin="anonymous" alt="خريطة مدينة مبسطة بمسار ودبوسي انطلاق ووصول" className="h-full w-full object-cover" />
+        <img src={`${base}pablo-map-photo.png`} crossOrigin="anonymous" alt="خريطة جوية واقعية للقاهرة مع نقطة انطلاق ووجهة ومسار" className="h-full w-full object-cover" />
       </div>
       <section className="absolute right-[7vw] top-[27vh] w-[43vw] space-y-[4vh]">
         <div className="flex items-start gap-[1.8vw]"><span className="font-display text-[3vw] font-bold text-accent">١</span><p className="pt-[0.6vh] text-[2vw] leading-relaxed">ابحث بالاسم أو حدّد الموقع على الخريطة</p></div>
