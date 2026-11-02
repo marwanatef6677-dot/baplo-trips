@@ -19,6 +19,7 @@ const MIN_FARE_MOTORCYCLE_PIASTERS = 3_000;
 const FARE_STEP_PIASTERS = 500;
 const MAX_ADJUSTMENT_PIASTERS = 1_000_000;
 const formatEgp = (piasters: number) => `${new Intl.NumberFormat("ar-EG", { maximumFractionDigits: 2 }).format(piasters / 100)} جنيه`;
+type AddressField = "pickup" | "destination";
 
 export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; defaultProvince?: string }) {
   const [, setLocation] = useLocation();
@@ -37,6 +38,9 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
   const [placeQuery, setPlaceQuery] = useState("");
   const [placeResults, setPlaceResults] = useState<MapPlaceSearchResult[]>([]);
   const [placeSearchError, setPlaceSearchError] = useState("");
+  const [addressResolution, setAddressResolution] = useState<{ which: AddressField; results: MapPlaceSearchResult[] } | null>(null);
+  const [addressResolutionMessage, setAddressResolutionMessage] = useState("");
+  const [resolvingAddress, setResolvingAddress] = useState(false);
   const placeSearch = useSearchMapPlaces();
   const autoAddress = useRef<{ pickup: string | null; destination: string | null }>({ pickup: null, destination: null });
   const serviceType: RouteInputServiceType = d.serviceType ?? "passenger";
@@ -64,10 +68,11 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
   const coordLabel = (p: LatLng) => `${p.lat.toFixed(5)}, ${p.lng.toFixed(5)}`;
 
   function placePin(which: "pickup" | "destination", p: LatLng, searchedAddress?: string) {
+    setAddressResolution(null);
+    setAddressResolutionMessage("");
     const currentAddress = which === "pickup" ? d.pickup : d.destination;
-    const previousAutoAddress = autoAddress.current[which];
     const nextAddress = searchedAddress?.slice(0, 240)
-      ?? (previousAutoAddress && currentAddress === previousAutoAddress ? "" : currentAddress);
+      ?? currentAddress;
     autoAddress.current[which] = searchedAddress ? nextAddress : null;
     if (which === "pickup") {
       setD((x) => ({ ...x, pickupLat: p.lat, pickupLng: p.lng, pickup: nextAddress }));
@@ -84,25 +89,37 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
     }
   }
   function clearPin(which: "pickup" | "destination") {
+    setAddressResolution(null);
+    setAddressResolutionMessage("");
     if (which === "pickup") {
-      const nextAddress = autoAddress.current.pickup === d.pickup ? "" : d.pickup;
-      setD((x) => ({ ...x, pickupLat: undefined, pickupLng: undefined, pickup: nextAddress }));
+      setD((x) => ({ ...x, pickupLat: undefined, pickupLng: undefined }));
       autoAddress.current.pickup = null;
       setGeo("idle"); setGeoMsg("");
     } else {
-      const nextAddress = autoAddress.current.destination === d.destination ? "" : d.destination;
-      setD((x) => ({ ...x, destinationLat: undefined, destinationLng: undefined, destination: nextAddress }));
+      setD((x) => ({ ...x, destinationLat: undefined, destinationLng: undefined }));
       autoAddress.current.destination = null;
     }
     setMode(which);
   }
   function changeAddress(which: "pickup" | "destination", value: string) {
-    if (autoAddress.current[which] && autoAddress.current[which] !== value) autoAddress.current[which] = null;
+    setAddressResolution(null);
+    setAddressResolutionMessage("");
+    const autoMatchedAddress = autoAddress.current[which];
+    if (autoMatchedAddress && autoMatchedAddress !== value) {
+      autoAddress.current[which] = null;
+      const latField = which === "pickup" ? "pickupLat" : "destinationLat";
+      const lngField = which === "pickup" ? "pickupLng" : "destinationLng";
+      setD((current) => ({ ...current, [which]: value, [latField]: undefined, [lngField]: undefined }));
+      setErrs((current) => ({ ...current, [which]: undefined, [latField]: undefined, [lngField]: undefined }));
+      return;
+    }
     set(which, value);
   }
 
   function searchForPlace() {
     const query = placeQuery.trim();
+    setAddressResolution(null);
+    setAddressResolutionMessage("");
     if (query.length < 3) {
       setPlaceResults([]);
       setPlaceSearchError("اكتب اسم مكان من ٣ حروف على الأقل.");
@@ -115,9 +132,9 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
     }, {
       onSuccess: (results) => {
         setPlaceResults(results);
-        if (results.length === 0) setPlaceSearchError("ملقيناش المكان. جرّب اسمًا أقصر أو اكتبه يدويًا وحدد الدبوس.");
+        if (results.length === 0) setPlaceSearchError("ملقيناش المكان. جرّب اسمًا أقصر أو اكتب العنوان مباشرة.");
       },
-      onError: (error) => setPlaceSearchError(errorText(error, "البحث مش متاح دلوقتي. اكتب العنوان يدويًا أو حدد الدبوس على الخريطة.")),
+      onError: (error) => setPlaceSearchError(errorText(error, "البحث مش متاح دلوقتي. اكتب العنوان مباشرة أو حدد الدبوس على الخريطة.")),
     });
   }
 
@@ -126,6 +143,66 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
     setPlaceQuery("");
     setPlaceResults([]);
     setPlaceSearchError("");
+  }
+
+  function applyResolvedCoordinates(matches: Array<{ which: AddressField; place: MapPlaceSearchResult }>) {
+    const coordinates: Partial<Draft> = {};
+    for (const { which, place } of matches) {
+      autoAddress.current[which] = d[which].trim();
+      if (which === "pickup") {
+        coordinates.pickupLat = place.latitude;
+        coordinates.pickupLng = place.longitude;
+      } else {
+        coordinates.destinationLat = place.latitude;
+        coordinates.destinationLng = place.longitude;
+      }
+    }
+    if (Object.keys(coordinates).length) setD((current) => ({ ...current, ...coordinates }));
+  }
+
+  async function resolveAddressOnlyLocations() {
+    const missing: AddressField[] = [];
+    if (d.pickupLat == null || d.pickupLng == null) missing.push("pickup");
+    if (d.destinationLat == null || d.destinationLng == null) missing.push("destination");
+    if (!missing.length) return;
+
+    setResolvingAddress(true);
+    setAddressResolution(null);
+    setAddressResolutionMessage("");
+    const resolved: Array<{ which: AddressField; place: MapPlaceSearchResult }> = [];
+    try {
+      for (const which of missing) {
+        const results = await placeSearch.mutateAsync({
+          data: { query: d[which].trim(), ...(d.province ? { province: d.province } : {}) },
+        });
+        if (results.length === 0) {
+          applyResolvedCoordinates(resolved);
+          setAddressResolutionMessage(`مقدرناش نحدد موقع ${which === "pickup" ? "عنوان الركوب" : "عنوان الوجهة"}. عدّل العنوان أو اختار نتيجة البحث أو حط دبوسًا على الخريطة.`);
+          return;
+        }
+        if (results.length > 1) {
+          applyResolvedCoordinates(resolved);
+          setAddressResolution({ which, results: results.slice(0, 5) });
+          setAddressResolutionMessage(`العنوان له أكتر من نتيجة. اختار المكان الأقرب لـ${which === "pickup" ? "الركوب" : "الوجهة"}، ومش محتاج تحط الدبوس بنفسك.`);
+          return;
+        }
+        resolved.push({ which, place: results[0] });
+      }
+      applyResolvedCoordinates(resolved);
+      setAddressResolutionMessage("حددنا الموقع من العنوان تلقائيًا. راجع النقطتين على الخريطة؛ بعد ظهور السعر اضغط «اطلب الرحلة» مرة تانية.");
+    } catch (error) {
+      applyResolvedCoordinates(resolved);
+      setAddressResolutionMessage(errorText(error, "تعذر تحديد الموقع من العنوان دلوقتي. جرّب البحث بالاسم أو حط الدبوس على الخريطة."));
+    } finally {
+      setResolvingAddress(false);
+    }
+  }
+
+  function chooseResolvedAddress(place: MapPlaceSearchResult) {
+    if (!addressResolution) return;
+    applyResolvedCoordinates([{ which: addressResolution.which, place }]);
+    setAddressResolution(null);
+    setAddressResolutionMessage("اتحدد المكان من العنوان. راجع الخريطة؛ بعد ظهور السعر اضغط «اطلب الرحلة» مرة تانية.");
   }
 
   // Route preview: debounced, stale responses ignored via sequence id.
@@ -182,8 +259,6 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
     const e: typeof errs = {};
     if (d.pickup.trim().length < 3) e.pickup = "اكتب عنوان الركوب يدويًا أو اختار عنوانًا من البحث";
     if (d.destination.trim().length < 3) e.destination = "اكتب عنوان الوجهة يدويًا أو اختار عنوانًا من البحث";
-    if (d.pickupLat == null || d.pickupLng == null) e.pickupLat = "حط دبوس الركوب على الخريطة";
-    if (d.destinationLat == null || d.destinationLng == null) e.destinationLat = "حط دبوس الوصول على الخريطة";
     if (!d.province) e.province = "اختار المحافظة";
     if (d.notes.length > 500) e.notes = "الملاحظات طويلة شوية (أقصى حد ٥٠٠ حرف)";
     if (isDelivery) {
@@ -195,10 +270,14 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
     return Object.keys(e).length === 0;
   }
 
-  function submit(ev: React.FormEvent) {
+  async function submit(ev: React.FormEvent) {
     ev.preventDefault();
     setServerErr("");
     if (!validate()) return;
+    if (d.pickupLat == null || d.pickupLng == null || d.destinationLat == null || d.destinationLng == null) {
+      await resolveAddressOnlyLocations();
+      return;
+    }
     if (route.s !== "ok" || !route.data) {
       setServerErr("احسب الطريق والسعر الأول قبل إرسال الطلب.");
       return;
@@ -258,7 +337,7 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
       <div className="overflow-hidden rounded-[2rem] bg-[#10151d] p-2 shadow-[0_24px_60px_-30px_rgba(16,21,29,.7)]">
         <div className="flex gap-1.5 p-1.5" role="radiogroup" aria-label="بتحدد إيه على الخريطة">
           {(["pickup", "destination"] as const).map((k) => (
-            <button key={k} type="button" role="radio" aria-checked={mode === k} data-testid={`button-mode-${k}`} onClick={() => { setMode(k); setPlaceQuery(""); setPlaceResults([]); setPlaceSearchError(""); }}
+            <button key={k} type="button" role="radio" aria-checked={mode === k} data-testid={`button-mode-${k}`} disabled={resolvingAddress} onClick={() => { setMode(k); setPlaceQuery(""); setPlaceResults([]); setPlaceSearchError(""); }}
               className={cn("press flex flex-1 items-center justify-center gap-2 rounded-2xl px-3 py-2.5 text-sm font-bold transition-colors", mode === k ? "bg-[#ffd000] text-[#10151d]" : "text-[#f6f1e4]/70 hover:bg-[#f6f1e4]/5")}>
               {k === "pickup" ? <MapPin className="h-4 w-4" /> : <Flag className="h-4 w-4" />}
               {k === "pickup" ? "نقطة الركوب" : "الوجهة"}
@@ -273,23 +352,24 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
               onChange={(event) => { setPlaceQuery(event.target.value); setPlaceSearchError(""); setPlaceResults([]); }}
               onKeyDown={(event) => { if (event.key === "Enter") { event.preventDefault(); searchForPlace(); } }}
               maxLength={160}
+              disabled={resolvingAddress}
               aria-label={mode === "pickup" ? "ابحث عن مكان الركوب" : "ابحث عن الوجهة"}
               placeholder={mode === "pickup" ? "ابحث عن مكان الركوب بالاسم" : "ابحث عن الوجهة بالاسم"}
               className="h-11 min-w-0 flex-1 rounded-xl border border-[#f6f1e4]/15 bg-[#f6f1e4]/10 px-3 text-sm text-[#f6f1e4] outline-none placeholder:text-[#f6f1e4]/45 focus:border-[#ffd000]"
               data-testid="input-place-search"
             />
-            <button type="button" onClick={searchForPlace} disabled={placeSearch.isPending || placeQuery.trim().length < 3}
+            <button type="button" onClick={searchForPlace} disabled={resolvingAddress || placeSearch.isPending || placeQuery.trim().length < 3}
               className="press inline-flex h-11 shrink-0 items-center gap-1.5 rounded-xl bg-[#ffd000] px-3 text-sm font-bold text-[#10151d] disabled:opacity-50" data-testid="button-place-search">
               {placeSearch.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
               بحث
             </button>
           </div>
-          <p className="text-[10px] leading-relaxed text-[#f6f1e4]/55">اسم المكان اللي بتبحث عنه بيتبعت إلى OpenStreetMap لعرض النتائج. اختار نتيجة لملء العنوان والدبوس، أو حدد المكان واكتب العنوان بنفسك.</p>
+          <p className="text-[10px] leading-relaxed text-[#f6f1e4]/55">تقدر تبحث بالاسم أو تكتب العنوان يدويًا؛ الدبوس اختياري. عند الإرسال، بابلو يحاول يحدد الموقع من العنوان لحساب الطريق والسعر.</p>
           {placeSearchError && <p className="text-xs text-[#ffd000]" role="status" data-testid="text-place-search-error">{placeSearchError}</p>}
           {placeResults.length > 0 && (
             <div className="max-h-48 space-y-1 overflow-y-auto rounded-xl border border-[#f6f1e4]/15 bg-[#171d25] p-1" role="listbox" aria-label="نتائج البحث" data-testid="list-place-search-results">
               {placeResults.map((place) => (
-                <button key={place.id} type="button" role="option" aria-selected="false" onClick={() => choosePlace(place)}
+                <button key={place.id} type="button" role="option" aria-selected="false" disabled={resolvingAddress} onClick={() => choosePlace(place)}
                   className="press block w-full rounded-lg px-3 py-2 text-right text-xs leading-relaxed text-[#f6f1e4] hover:bg-[#f6f1e4]/10" data-testid={`button-place-result-${place.id}`}>
                   {place.label}
                 </button>
@@ -298,18 +378,18 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
           )}
         </div>
         <div className="relative">
-          <PabloMap pickup={pickM} destination={destM} route={route.s === "ok" ? route.data?.coordinates : null} picking onPick={(p) => placePin(mode, p)} className="h-[340px] rounded-[1.5rem] border-0 md:h-[380px]" />
+          <PabloMap pickup={pickM} destination={destM} route={route.s === "ok" ? route.data?.coordinates : null} picking interactive={!resolvingAddress} onPick={(p) => placePin(mode, p)} className="h-[340px] rounded-[1.5rem] border-0 md:h-[380px]" />
           <p className="pointer-events-none absolute inset-x-3 top-3 z-[500] mx-auto w-fit rounded-full bg-[#10151d]/90 px-3 py-1.5 text-center text-xs font-semibold text-[#f6f1e4]">
             اضغط على الخريطة لتحديد {mode === "pickup" ? <span className="text-[#ffd000]">نقطة الركوب</span> : <span className="text-[#ffd000]">الوجهة</span>}
           </p>
-          <button type="button" data-testid="button-locate" onClick={locate} disabled={geo === "busy"} aria-label="استخدم مكاني كنقطة ركوب"
+          <button type="button" data-testid="button-locate" onClick={locate} disabled={resolvingAddress || geo === "busy"} aria-label="استخدم مكاني كنقطة ركوب"
             className="press absolute bottom-7 left-3 z-[500] inline-flex items-center gap-1.5 rounded-full bg-[#ffd000] px-3.5 py-2.5 text-xs font-bold text-[#10151d] shadow-lg disabled:opacity-60">
             {geo === "busy" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Crosshair className="h-4 w-4" />}
             {geo === "busy" ? "بنحدد مكانك..." : "مكاني = الركوب"}
           </button>
         </div>
         <div className="px-3 pb-2 pt-3 text-[#f6f1e4]" data-testid="route-preview" aria-live="polite">
-          {route.s === "idle" && <p className="text-xs text-[#f6f1e4]/60">حط الدبوسين عشان نحسب المسافة بالطريق.</p>}
+          {route.s === "idle" && <p className="text-xs text-[#f6f1e4]/60">اختار نقطتين من الخريطة أو اكتب العنوانين؛ هنحدد الموقع من العنوان لو ماحطتش دبوس.</p>}
           {route.s === "loading" && <p className="flex items-center gap-2 text-xs text-[#f6f1e4]/70"><Loader2 className="h-3.5 w-3.5 animate-spin" /> بنحسب الطريق...</p>}
           {route.s === "ok" && route.data && (
             <div className="space-y-3">
@@ -370,7 +450,7 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
             <div key={k} className={k === "destination" ? "mt-4" : ""}>
               <label className="flex items-center gap-3">
                 <span className={cn("z-10 h-3.5 w-3.5 shrink-0", k === "pickup" ? "rounded-full border-[3px] border-[#10151d] bg-[#ffd000]" : "rounded-[4px] bg-[#10151d]")} />
-                <input data-testid={`input-${k}`} aria-label={k === "pickup" ? "عنوان نقطة الركوب يدويًا" : "عنوان الوجهة يدويًا"} className={cn(fieldCls, "border-0 bg-muted/60")} maxLength={240}
+                <input data-testid={`input-${k}`} aria-label={k === "pickup" ? "عنوان نقطة الركوب يدويًا" : "عنوان الوجهة يدويًا"} className={cn(fieldCls, "border-0 bg-muted/60")} maxLength={240} disabled={resolvingAddress}
                   placeholder={k === "pickup" ? "اكتب عنوان الركوب يدويًا، مثلاً أمام محطة مترو الدقي" : "اكتب عنوان وجهتك يدويًا"}
                   value={d[k]} onChange={(e) => changeAddress(k, e.target.value)} />
               </label>
@@ -380,19 +460,42 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
                     <MapPin className="h-3 w-3" /><span className="font-num">{coordLabel(p)}</span>
                     <button type="button" data-testid={`button-clear-${k}`} onClick={() => clearPin(k)} aria-label="شيل الدبوس" className="mr-1 rounded-full p-0.5 opacity-70 hover:opacity-100"><X className="h-3 w-3" /></button>
                   </span>
-                ) : <span className="text-muted-foreground">لسه مفيش دبوس على الخريطة</span>}
+                ) : <span className="text-muted-foreground">هنحدد الموقع من العنوان عند الإرسال</span>}
               </div>
               {err && <p className="mr-7 mt-1 text-xs text-destructive">{err}</p>}
             </div>
           );
         })}
-        <p className="mt-4 rounded-xl bg-accent px-3 py-2 text-[11px] leading-relaxed">الدبوس اللي على الخريطة هو المكان اللي بيتبعت للكابتن. الكلام المكتوب وصف بس عشان يلاقيك، ومش بنحوّله لمكان.</p>
+        <p className="mt-4 rounded-xl bg-accent px-3 py-2 text-[11px] leading-relaxed">مش لازم تحط دبوس: اكتب عنوان الركوب والوجهة واضغط «اطلب الرحلة». بابلو هيحاول يحدد الموقع من العنوان تلقائيًا، ولو ظهر أكتر من مكان هتختار الأقرب. الدبوس يفضل متاحًا للتعديل.</p>
       </div>
+      {resolvingAddress && (
+        <p className="flex items-center gap-2 rounded-xl bg-muted px-3 py-2 text-xs font-semibold" role="status" data-testid="text-address-resolving">
+          <Loader2 className="h-4 w-4 animate-spin" /> بنحدد موقعك من العنوان عشان نحسب الطريق والسعر...
+        </p>
+      )}
+      {addressResolutionMessage && <p className="rounded-xl bg-muted px-3 py-2 text-xs leading-relaxed" role="status" data-testid="text-address-resolution">{addressResolutionMessage}</p>}
+      {addressResolution && (
+        <div className="space-y-2 rounded-2xl border border-[#d8cfae] bg-[#fffdf7] p-3" data-testid="list-address-matches">
+          <p className="text-sm font-bold">اختار أقرب نتيجة للعنوان المكتوب:</p>
+          <div className="max-h-52 space-y-1 overflow-y-auto">
+            {addressResolution.results.map((place) => (
+              <button key={place.id} type="button" onClick={() => chooseResolvedAddress(place)}
+                className="press block w-full rounded-xl border border-[#15232a]/10 bg-white px-3 py-2.5 text-right text-xs leading-relaxed hover:border-[#176c68]/40 hover:bg-[#176c68]/5"
+                data-testid={`button-address-match-${place.id}`}>
+                {place.label}
+              </button>
+            ))}
+          </div>
+          <button type="button" className="text-xs font-semibold text-muted-foreground underline" onClick={() => { setAddressResolution(null); setAddressResolutionMessage(""); setMode(addressResolution.which); }}>
+            هحدد المكان على الخريطة بدل كده
+          </button>
+        </div>
+      )}
 
       <div>
         <label className="mb-1.5 block text-sm font-semibold">المحافظة</label>
         {config.isLoading ? <Skeleton className="h-12" /> : (
-          <select data-testid="select-province" className={fieldCls} value={d.province} onChange={(e) => set("province", e.target.value)}>
+          <select data-testid="select-province" className={fieldCls} value={d.province} disabled={resolvingAddress} onChange={(e) => set("province", e.target.value)}>
             <option value="">اختار محافظتك</option>
             {config.data?.provinces.map((p) => <option key={p} value={p}>{p}</option>)}
           </select>
@@ -475,8 +578,8 @@ export function BookingForm({ signedIn, defaultProvince }: { signedIn: boolean; 
         )}
       </AnimatePresence>
 
-      <Btn type="submit" variant="yellow" data-testid="button-request" disabled={create.isPending || route.s !== "ok"} className="h-14 w-full text-lg">
-        {create.isPending ? <><Loader2 className="h-5 w-5 animate-spin" /> بنبعت الطلب...</> : signedIn ? "اطلب الرحلة" : "سجّل دخول عشان تطلب"}
+      <Btn type="submit" variant="yellow" data-testid="button-request" disabled={create.isPending || resolvingAddress || route.s === "loading"} className="h-14 w-full text-lg">
+        {create.isPending ? <><Loader2 className="h-5 w-5 animate-spin" /> بنبعت الطلب...</> : resolvingAddress ? <><Loader2 className="h-5 w-5 animate-spin" /> بنحدد العناوين...</> : signedIn ? "اطلب الرحلة" : "سجّل دخول عشان تطلب"}
       </Btn>
       {!signedIn && <p className="text-center text-xs text-muted-foreground">هنحفظ اللي كتبته، وبعد الدخول هتراجعه وتطلب بنفسك.</p>}
     </form>
