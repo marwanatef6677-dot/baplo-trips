@@ -4,7 +4,11 @@
 > **من إنشاء وتنفيذ:** Abdelrahman Atef Fawzy Aly  
 > **تحت إشراف المشروع:** Taha Mahmoud Metwally Nour El-Dein
 
-![شعار بابلو](../artifacts/pablo/public/logo.svg)
+<p align="center">
+  <img src="../artifacts/pablo-feature-presentation/public/replit-logo.svg" alt="شعار Replit" height="44">
+  <img src="../artifacts/pablo-feature-presentation/public/nordpoints-logo.png" alt="شعار Nordpoints" height="44">
+  <img src="../artifacts/pablo/public/logo.svg" alt="شعار بابلو" height="52">
+</p>
 
 ## الفكرة
 
