@@ -1,7 +1,7 @@
 # فكرة مشروع بابلو
 
-> **منحة تعليمية من Replit**  
-> **من إنشاء وتنفيذ:** Abdelrahman Atef Fawzy Aly  
+> **منحة تعليمية من Replit**<br>
+> **من إنشاء وتنفيذ:** Marwan Atef Abdelwahed Ali<br>
 > **تحت إشراف المشروع:** Taha Mahmoud Metwally Nour El-Dein
 
 <p align="center">
@@ -47,6 +47,12 @@
 
 يتضمن مستودع المشروع واجهة بابلو وخادمها البرمجي ومصدر العرض التقديمي. يشرح [الوصف الفني](pablo-product-description.ar.md) الوظائف الحالية وحدودها، ويعرض [دليل التطبيق](pablo-app-guide.ar.html) شرحًا إضافيًا للواجهات.
 
+## ملفات العرض
+
+- [نسخة PowerPoint القابلة للتعديل](downloads/Pablo-Presentation.pptx)
+- [نسخة PDF](downloads/Pablo-Presentation.pdf)
+- [مصدر العرض](../artifacts/pablo-feature-presentation/)
+
 ## ملاحظة عن الشعارات
 
-يُستخدم شعار بابلو الموجود ضمن ملفات التطبيق. لا يُضاف شعار شخصي للمشرف إلا بعد استلام ملفه الرسمي، لتجنب استخدام شعار غير صحيح.
+يُستخدم شعار بابلو للموقع، مع شعاري Replit وNordpoints الموجودين في العرض. لا يوجد ضمن الملفات المتاحة شعار شخصي منفصل للمشرف.

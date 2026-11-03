@@ -1,7 +1,7 @@
 # بابلو (Pablo)
 
-> **منحة تعليمية من Replit**  
-> **من إنشاء وتنفيذ:** Abdelrahman Atef Fawzy Aly  
+> **منحة تعليمية من Replit**<br>
+> **من إنشاء وتنفيذ:** Marwan Atef Abdelwahed Ali<br>
 > **تحت إشراف المشروع:** Taha Mahmoud Metwally Nour El-Dein
 
 <p align="center">
@@ -32,6 +32,7 @@
 | `docs/pablo-app-guide.ar.html` | دليل التطبيق |
 | `docs/operating-readiness.ar.md` | متطلبات الجاهزية قبل التشغيل |
 | `docs/pablo-ownership-declaration.ar.html` | مسودة إقرار وبيان فني؛ ليست شهادة رسمية |
+| `docs/downloads/Pablo-Presentation.pptx` | نسخة PowerPoint قابلة للتعديل |
 | `docs/downloads/Pablo-Presentation.pdf` | العرض التعريفي بصيغة PDF |
 
 ## أبرز الوظائف
@@ -63,12 +64,13 @@
 
 ## ملفات العرض
 
+- [تنزيل عرض بابلو بصيغة PowerPoint](docs/downloads/Pablo-Presentation.pptx)
 - [تنزيل عرض بابلو بصيغة PDF](docs/downloads/Pablo-Presentation.pdf)
 - [المصدر القابل للتحرير للعرض](artifacts/pablo-feature-presentation/)
 
 ## الشعارات
 
-شعار بابلو موجود في `artifacts/pablo/public/logo.svg`، وشعارات Replit وNordpoints الخاصة بالعرض موجودة في مجلد العرض. أُضيف شعار المشرف عند تزويد المشروع بملفه الرسمي.
+شعار بابلو موجود في `artifacts/pablo/public/logo.svg`، وشعارا Replit وNordpoints الموجودان في العرض مرفقان ضمن ملفاته. لا يوجد ضمن الملفات المتاحة شعار شخصي منفصل للمشرف.
 
 ## تنبيه
 
