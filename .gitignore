@@ -54,3 +54,11 @@ Thumbs.db
 .cache/
 .local/
 /generated-artifacts/
+
+# Large generated archives and video exports
+*.zip
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi
