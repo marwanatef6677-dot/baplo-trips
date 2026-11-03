@@ -20,6 +20,8 @@
 
 للتفاصيل: [فكرة المشروع](docs/project-idea.ar.md).
 
+راجع أيضًا [مخطط بنية التطبيق](docs/app-architecture.ar.md).
+
 ## محتويات المستودع
 
 | المسار | المحتوى |
@@ -28,6 +30,7 @@
 | `artifacts/api-server/` | واجهة الخادم البرمجية |
 | `artifacts/pablo-feature-presentation/` | المصدر القابل للتحرير للعرض التقديمي |
 | `docs/project-idea.ar.md` | فكرة المشروع ونطاقه |
+| `docs/app-architecture.ar.md` | مخطط بنية التطبيق ومكوناته |
 | `docs/pablo-product-description.ar.md` | الوصف الفني والوظائف |
 | `docs/pablo-app-guide.ar.html` | دليل التطبيق |
 | `docs/operating-readiness.ar.md` | متطلبات الجاهزية قبل التشغيل |

@@ -52,6 +52,7 @@
 - [نسخة PowerPoint القابلة للتعديل](downloads/Pablo-Presentation.pptx)
 - [نسخة PDF](downloads/Pablo-Presentation.pdf)
 - [مصدر العرض](../artifacts/pablo-feature-presentation/)
+- [مخطط بنية التطبيق](app-architecture.ar.md)
 
 ## ملاحظة عن الشعارات
 
