@@ -140,3 +140,31 @@ mtime_ms = 1793724357641
 storage_uri = "gcs://replit-rams-assets-reed/rams/assets/repl:6f112d47-9041-4a45-a6a0-5b62e6775ca0/9103a524-9ebe-4bb9-b862-43d97e47a799/831f41ea-0a17-44e2-9406-2a6d6d44c6c0"
 storage_version_token = "1793724367307977"
 content_type = "application/octet-stream"
+
+[[outputs]]
+id = "PBCYkGe1A3vG7kdn4ocnr"
+uri = "file://docs/downloads/Pablo-Presentation.pptx"
+type = "slides"
+title = "عرض بابلو — PowerPoint للموبايل"
+description = "نزّل العرض على هاتفك وافتحه بتطبيق PowerPoint أو Slides."
+logical_id = "05661d2b-b0c9-4b7b-8678-1d312f1e993f"
+content_hash = "sha256:910b504016ed11db6d9971c219f300d36d388e8f9c4d197b6bc43ede061bce6a"
+size = 14767306
+mtime_ms = 1793724151077
+storage_uri = "gcs://replit-rams-assets-reed/rams/assets/repl:6f112d47-9041-4a45-a6a0-5b62e6775ca0/05661d2b-b0c9-4b7b-8678-1d312f1e993f/f91f4934-cf8d-4a70-b961-358188b7f282"
+storage_version_token = "1793726089214550"
+content_type = "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+
+[[outputs]]
+id = "Uc2v2GOQn3IxFmc4j56n_"
+uri = "file://docs/downloads/Pablo-Presentation.pdf"
+type = "pdf"
+title = "عرض بابلو — PDF للموبايل"
+description = "نسخة PDF سهلة الفتح والمشاركة على الهاتف."
+logical_id = "ad1e5f1a-74d3-449b-8dcd-a413375d7a31"
+content_hash = "sha256:fae254841cf9fca20893d4a61fdaa423b8b1bd762ca80ac440b7b6d0c54d6561"
+size = 2412238
+mtime_ms = 1793665418356
+storage_uri = "gcs://replit-rams-assets-reed/rams/assets/repl:6f112d47-9041-4a45-a6a0-5b62e6775ca0/ad1e5f1a-74d3-449b-8dcd-a413375d7a31/e3cb3534-fde0-4994-91e6-6da5f3af075a"
+storage_version_token = "1793726089901368"
+content_type = "application/pdf"
