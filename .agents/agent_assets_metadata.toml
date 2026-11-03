@@ -126,3 +126,17 @@ mtime_ms = 1793664314973
 storage_uri = "gcs://replit-rams-assets-reed/rams/assets/repl:6f112d47-9041-4a45-a6a0-5b62e6775ca0/5bf4691e-25d6-4c56-b0f2-23e59894bfbe/c9ba868d-9d22-4217-9270-7de71e2872ec"
 storage_version_token = "1793664315513252"
 content_type = "application/pdf"
+
+[[outputs]]
+id = "L8bxDKu9qf7oVXhsKLmjP"
+uri = "file://generated-artifacts/Pablo-project-files.zip"
+type = "unspecified"
+title = "نسخة مشروع بابلو ZIP"
+description = "ملفات المشروع ووثائقه، مع عرض PDF وPowerPoint القابل للتعديل."
+logical_id = "9103a524-9ebe-4bb9-b862-43d97e47a799"
+content_hash = "sha256:fb04c527ccbcea296e0d4e4d5d2fc1a7aa1509bce901aee174753412263947c0"
+size = 61284752
+mtime_ms = 1793667865176
+storage_uri = "gcs://replit-rams-assets-reed/rams/assets/repl:6f112d47-9041-4a45-a6a0-5b62e6775ca0/9103a524-9ebe-4bb9-b862-43d97e47a799/d4a3e068-f323-433a-9f62-cf6498931971"
+storage_version_token = "1793667879356902"
+content_type = "application/octet-stream"
